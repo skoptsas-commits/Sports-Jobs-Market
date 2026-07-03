@@ -7,6 +7,16 @@ Used under Adzuna's "Personal or academic research" permitted use
 aggregate counts and sampled salary stats only — no full job
 descriptions are stored or redistributed, per ToS obligations.
 
+Matching strategy: Adzuna's `what` param requires all words to appear
+(phrase/AND-like matching), which under-counts niche multi-word roles
+(e.g. "motorsport data engineer" often returns 0 even though relevant
+jobs exist under slightly different wording). To keep counts honest
+without inflating them, each query first tries `what` (precise), and
+only falls back to `what_or` (any word matches) if that returns zero
+results. The output records which matching mode was actually used
+(`match_type`) so the dashboard can be transparent about it instead of
+silently implying a 0 count means "no demand".
+
 Requires env vars: ADZUNA_APP_ID, ADZUNA_APP_KEY
 Writes: data/adzuna_snapshot.json
 """
@@ -26,31 +36,46 @@ if not APP_ID or not APP_KEY:
     sys.exit(1)
 
 # Curated keyword x country combinations covering the sports covered by the dashboard.
+# Kept to 1-2 words where possible so Adzuna's default AND-style `what` matching
+# still finds real postings (3+ word phrases were returning 0 far too often).
 QUERIES = [
-    {"keyword": "sports data analyst", "country": "gb"},
     {"keyword": "sports data scientist", "country": "us"},
     {"keyword": "sports scientist football", "country": "gb"},
-    {"keyword": "performance analyst football", "country": "gb"},
-    {"keyword": "motorsport data engineer", "country": "gb"},
-    {"keyword": "cycling performance analyst", "country": "gb"},
-    {"keyword": "basketball data analyst", "country": "us"},
+    {"keyword": "sports analyst", "country": "gb"},
+    {"keyword": "performance analyst", "country": "gb"},
+    {"keyword": "motorsport engineer", "country": "gb"},
+    {"keyword": "cycling analyst", "country": "gb"},
+    {"keyword": "basketball analyst", "country": "us"},
 ]
 
 BASE_URL = "https://api.adzuna.com/v1/api/jobs/{country}/search/1"
 
 
-def fetch_query(keyword: str, country: str) -> dict:
+def call_adzuna(keyword: str, country: str, param_name: str) -> dict:
     params = {
         "app_id": APP_ID,
         "app_key": APP_KEY,
         "results_per_page": 20,
-        "what": keyword,
+        param_name: keyword,
         "content-type": "application/json",
     }
     url = f"{BASE_URL.format(country=country)}?{urlencode(params)}"
     req = Request(url, headers={"User-Agent": "sports-jobs-market-analyzer/1.0 (personal research)"})
     with urlopen(req, timeout=20) as resp:
-        payload = json.loads(resp.read().decode("utf-8"))
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def fetch_query(keyword: str, country: str) -> dict:
+    # Try precise (AND / phrase-like) matching first.
+    payload = call_adzuna(keyword, country, "what")
+    match_type = "precise (all words)"
+
+    if not payload.get("count"):
+        # Fall back to OR matching so a niche multi-word phrase doesn't
+        # falsely read as "zero demand" when it's really a matching artifact.
+        time.sleep(2)
+        payload = call_adzuna(keyword, country, "what_or")
+        match_type = "broad (any word)"
 
     results = payload.get("results", [])
     salaries_min = [r["salary_min"] for r in results if r.get("salary_min")]
@@ -60,6 +85,7 @@ def fetch_query(keyword: str, country: str) -> dict:
         "keyword": keyword,
         "country": country,
         "count": payload.get("count", 0),
+        "match_type": match_type,
         "sample_size": len(results),
         "avg_salary_min": round(sum(salaries_min) / len(salaries_min), 0) if salaries_min else None,
         "avg_salary_max": round(sum(salaries_max) / len(salaries_max), 0) if salaries_max else None,
@@ -78,13 +104,14 @@ def main():
         try:
             result = fetch_query(q["keyword"], q["country"])
             snapshot["queries"].append(result)
-            print(f"OK   {q['country']}/{q['keyword']}: {result['count']} postings")
+            print(f"OK   {q['country']}/{q['keyword']}: {result['count']} postings ({result['match_type']})")
         except Exception as e:
             print(f"FAIL {q['country']}/{q['keyword']}: {e}", file=sys.stderr)
             snapshot["queries"].append({
                 "keyword": q["keyword"],
                 "country": q["country"],
                 "count": None,
+                "match_type": "error",
                 "sample_size": 0,
                 "avg_salary_min": None,
                 "avg_salary_max": None,

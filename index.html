@@ -268,16 +268,19 @@ fetch('data/adzuna_snapshot.json', { cache: 'no-store' })
   .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
   .then(data => {
     const genDate = new Date(data.generated_at);
+    const anyBroad = (data.queries || []).some(q => q.match_type === 'broad (any word)');
     document.getElementById('adzunaDesc').textContent =
-      `Live matching postings per keyword — last refreshed ${genDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}.`;
+      `Live matching postings per keyword — last refreshed ${genDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}.` +
+      (anyBroad ? ' * = exact phrase returned 0, showing broader any-word match instead.' : '');
     const rows = (data.queries || []).map(q => [
       q.keyword,
       (q.country || '').toUpperCase(),
       q.count === null || q.count === undefined ? 'n/a' : q.count,
+      q.match_type === 'broad (any word)' ? 'broad*' : (q.match_type === 'error' ? 'error' : 'exact'),
       (q.avg_salary_min && q.avg_salary_max) ? `${Math.round(q.avg_salary_min).toLocaleString()}–${Math.round(q.avg_salary_max).toLocaleString()}` : 'n/a',
     ]);
     new gridjs.Grid({
-      columns: ['Keyword', 'Country', 'Matching postings', 'Avg salary (sampled)'],
+      columns: ['Keyword', 'Country', 'Matching postings', 'Match', 'Avg salary (sampled)'],
       data: rows,
       sort: true,
       className: { table: 'custom' },
