@@ -17,29 +17,31 @@ Built with [Chart.js](https://www.chartjs.org/) and [Grid.js](https://gridjs.io/
 
 ## Data sources
 
-This is a research snapshot (July 2026), not a live feed — LinkedIn and most club career sites block automated scraping, and no job-board API is connected. Figures were compiled from public job postings and market/salary research:
+This is a research snapshot (refreshed 3 Jul 2026), not a live feed — LinkedIn and most club career sites block automated scraping, and no job-board API is connected. Figures were compiled from public job postings and market/salary research:
 
 **Football**
 - [Jobs In Football — Data Science](https://jobsinfootball.com/categories/data-science/)
 - [Jobs In Football — Sports Science](https://jobsinfootball.com/categories/sports-science/)
-- [Learning People — Football data jobs & pay](https://www.learningpeople.com/uk/resources/blog/football-data-jobs/)
-- [Analytics Sports Jobs — Football analyst salary UK 2026](https://analyticssportsjobs.com/blog/premier-league-analyst-salary)
+- [ZipRecruiter — Football Data Science Jobs](https://www.ziprecruiter.com/Jobs/Football-Data-Science)
+- [CASES — Football Data Scientist posting](https://www.cases.org.uk/advert-football_data_scientist.html)
+- [Catapult One — Sports science and football](https://one.catapultsports.com/blog/sports-science-and-football/)
 
 **Basketball (NBA)**
+- [ZipRecruiter — NBA Analytics salary](https://www.ziprecruiter.com/Jobs/Nba-Analytics)
 - [TeamWork Online — LA Lakers Data Scientist posting](https://www.teamworkonline.com/basketball-jobs/los-angeles-lakers/los-angeles-lakers-jobs/data-scientist-2169726)
-- ZipRecruiter NBA Analytics salary data (aggregated, June 2026)
 
 **Formula 1**
 - [Aston Martin F1 — So you want to be an F1 data engineer?](https://www.astonmartinf1.com/en-GB/news/feature/so-you-want-to-be-an-f1-data-engineer)
+- [ZipRecruiter — Formula 1 Data Science Jobs](https://www.ziprecruiter.com/Jobs/Formula-1-Data-Science)
 - [Fluid Jobs — F1/Motorsport Data Science listings](https://fluidjobs.com/jobs/data-scientist-jobs)
-- [Trackside Careers — Data Science in Motorsport](https://tracksidecareers.com/blog/sports-data-science-jobs)
 
 **MotoGP**
 - [MotoGP.com — What is the role of a MotoGP Race Engineer?](https://www.motogp.com/en/news/2025/04/07/what-is-the-role-of-a-motogp-race-engineerx/1062790)
+- [Trackside Careers — Performance Engineer Jobs in Motorsport](https://tracksidecareers.com/blog/performance-engineer-jobs)
 
 **Cycling (WorldTour)**
 - [TeamWork.net — Data & Performance: TeamWork supports INEOS Grenadiers](https://www.teamwork.net/en/data-performance-teamwork-ineos-grenadiers/)
-- Indeed / ZipRecruiter cycling data analyst listings (aggregated)
+- [ZipRecruiter — Cycling Data Analyst Jobs](https://www.ziprecruiter.com/Jobs/Cycling-Data-Analyst)
 
 **Market size & hiring trends**
 - [Grand View Research — Sports Analytics Market Size Report](https://www.grandviewresearch.com/industry-analysis/sports-analytics-market)
@@ -47,7 +49,7 @@ This is a research snapshot (July 2026), not a live feed — LinkedIn and most c
 - [Analytics Sports Jobs — Top hiring companies 2026](https://analyticssportsjobs.com/blog/companies-hiring-most-sports-analysts-2026)
 - [ZipRecruiter — Sports Data Analyst Salary](https://www.ziprecruiter.com/Salaries/Sports-Data-Analyst-Salary)
 
-Salary figures are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise.
+Salary figures are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise. Since the last refresh: the football data-scientist US salary floor moved from ~$62k to ~$45k (broader aggregator range, Feb 2026 ZipRecruiter data) and the cross-sport entry-level floor moved from ~$55k to ~$50k. Global market size ($5.68B → $23.15B by 2033, 18.5% CAGR), the BLS-linked ~15% role growth outlook, and the top-hiring-employer ranking (FanDuel, Genius Sports, Swish Analytics, MLB, Dream Sports) were all reconfirmed unchanged this run.
 
 ## Publishing this as your own GitHub project
 
