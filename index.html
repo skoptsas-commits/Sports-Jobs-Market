@@ -18,6 +18,7 @@
   h1 { font-size: 22px; margin: 0 0 4px; }
   .subtitle { color: #5f6368; font-size: 13.5px; line-height: 1.5; margin: 0; }
   .badge { display:inline-block; background:#eef2ff; color:#3730a3; font-size:11px; font-weight:600; padding:3px 8px; border-radius:20px; margin-left:8px; vertical-align:middle;}
+  .badge.live { background:#ecfdf5; color:#065f46; }
   .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 20px 0; }
   .kpi-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; }
   .kpi-label { font-size: 11.5px; color: #6b7280; text-transform: uppercase; letter-spacing: .03em; margin-bottom: 6px; }
@@ -31,7 +32,7 @@
   .chart-box.small { height: 260px; }
   table.custom { width: 100%; border-collapse: collapse; font-size: 12.5px; }
   .tag { display:inline-block; background:#f3f4f6; border-radius:6px; padding:2px 6px; margin:2px 3px 2px 0; font-size:11px; color:#374151; }
-  #jobtable { font-size: 12.5px; }
+  #jobtable, #adzunaTable { font-size: 12.5px; }
   .gridjs-wrapper { border-radius: 8px !important; border: 1px solid #e5e7eb !important; box-shadow: none !important; }
   .gridjs-table { width: 100% !important; border-collapse: collapse; }
   th.gridjs-th { background: #f9fafb !important; font-size: 11.5px !important; text-transform: uppercase; letter-spacing: .02em; color: #6b7280 !important; border-bottom: 1px solid #e5e7eb !important; padding: 8px 10px !important; }
@@ -43,6 +44,8 @@
   footer a { color: #4f46e5; text-decoration: none; }
   footer ul { columns: 2; padding-left: 18px; }
   .note { font-size: 11.5px; color: #92400e; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 8px 12px; margin-bottom: 16px; }
+  .attribution { font-size: 11px; color: #6b7280; margin-top: 10px; }
+  .attribution a { color: #4f46e5; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -53,7 +56,7 @@
     <p class="subtitle">Data Scientist / Sports Scientist / Performance &amp; Data Analyst roles across football, basketball, Formula 1, MotoGP and WorldTour cycling teams. Compiled from public job postings, industry salary aggregators and market research (see Sources below).</p>
   </header>
 
-  <div class="note">This is a research snapshot, not a live LinkedIn feed — LinkedIn and most team career pages block automated scraping, and there's no connected job-board integration yet. Ask me to re-run the research anytime to refresh the numbers, or connect a jobs/LinkedIn data source if one becomes available.</div>
+  <div class="note">The KPI cards, charts and role table below are a research snapshot refreshed periodically (search-based, LinkedIn is not scraped). The "Live job postings" section further down pulls real counts from the Adzuna Jobs API automatically every week via GitHub Actions.</div>
 
   <div class="kpi-row">
     <div class="kpi-card">
@@ -110,6 +113,13 @@
     </div>
   </div>
 
+  <div class="card" style="margin-bottom:16px;">
+    <h2>Live job postings snapshot <span class="badge live">via Adzuna API</span></h2>
+    <p class="desc" id="adzunaDesc">Loading live counts…</p>
+    <div id="adzunaTable"></div>
+    <p class="attribution">Data via <a href="http://www.adzuna.co.uk/" target="_blank">The Adzuna API</a> — refreshed automatically every week by GitHub Actions, independent of the snapshot sections above.</p>
+  </div>
+
   <footer>
     <strong>Sources</strong>
     <ul>
@@ -131,6 +141,7 @@
       <li><a href="https://research.com/advice/sports-analytics-careers-skills-education-salary-job-outlook" target="_blank">Research.com — Sports Analytics Careers Outlook 2026</a></li>
       <li><a href="https://analyticssportsjobs.com/blog/companies-hiring-most-sports-analysts-2026" target="_blank">Analytics Sports Jobs — Top hiring companies 2026</a></li>
       <li><a href="https://www.ziprecruiter.com/Salaries/Sports-Data-Analyst-Salary" target="_blank">ZipRecruiter — Sports Data Analyst Salary</a></li>
+      <li><a href="http://www.adzuna.co.uk/" target="_blank">The Adzuna API — live postings data</a></li>
     </ul>
   </footer>
 </div>
@@ -251,6 +262,31 @@ new gridjs.Grid({
   search: true,
   className: { table: 'custom' },
 }).render(document.getElementById('jobtable'));
+
+// --- Live Adzuna snapshot ---
+fetch('data/adzuna_snapshot.json', { cache: 'no-store' })
+  .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
+  .then(data => {
+    const genDate = new Date(data.generated_at);
+    document.getElementById('adzunaDesc').textContent =
+      `Live matching postings per keyword — last refreshed ${genDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}.`;
+    const rows = (data.queries || []).map(q => [
+      q.keyword,
+      (q.country || '').toUpperCase(),
+      q.count === null || q.count === undefined ? 'n/a' : q.count,
+      (q.avg_salary_min && q.avg_salary_max) ? `${Math.round(q.avg_salary_min).toLocaleString()}–${Math.round(q.avg_salary_max).toLocaleString()}` : 'n/a',
+    ]);
+    new gridjs.Grid({
+      columns: ['Keyword', 'Country', 'Matching postings', 'Avg salary (sampled)'],
+      data: rows,
+      sort: true,
+      className: { table: 'custom' },
+    }).render(document.getElementById('adzunaTable'));
+  })
+  .catch(() => {
+    document.getElementById('adzunaDesc').textContent =
+      'Live data not available yet — the first automated refresh runs on the next scheduled GitHub Action (or trigger it manually from the Actions tab).';
+  });
 </script>
 </body>
 </html>

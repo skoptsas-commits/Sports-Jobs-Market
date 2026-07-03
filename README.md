@@ -3,7 +3,7 @@
 Snapshot dashboard of the sports data/science jobs market — Data Scientist, Sports Scientist, Performance & Data Analyst roles across football, basketball (NBA), Formula 1, MotoGP and WorldTour cycling teams.
 
 **Author:** Stelios Koptsas
-**Live demo:** enable GitHub Pages (see below) → `https://<your-username>.github.io/sports-jobs-market-analyzer/`
+**Live demo:** `https://skoptsas-commits.github.io/Sports-Jobs-Market/`
 
 ## What it shows
 
@@ -11,13 +11,37 @@ Snapshot dashboard of the sports data/science jobs market — Data Scientist, Sp
 - Cross-sport skill & tool footprint (Python, SQL, R, Power BI/Tableau, ML frameworks, sport-specific platforms)
 - Role table: core responsibilities, tools, education path, typical salary — by sport
 - UK football analyst pay by tier
-- Snapshot of which employers had the most open analytics roles (May 2026)
+- Snapshot of which employers had the most open analytics roles
+- **Live job postings snapshot** — real, current counts pulled from the Adzuna Jobs API (see below)
 
 Built with [Chart.js](https://www.chartjs.org/) and [Grid.js](https://gridjs.io/), no backend — single static `index.html`.
 
-## Data sources
+## Two update mechanisms (run independently)
 
-This is a research snapshot (refreshed 3 Jul 2026), not a live feed — LinkedIn and most club career sites block automated scraping, and no job-board API is connected. Figures were compiled from public job postings and market/salary research:
+**1. Search-based snapshot (KPI cards, salary/skill charts, role table)**
+Refreshed periodically via an AI research pass (web search across job boards, salary aggregators and market reports), then committed to `index.html` directly. This is qualitative/aggregated analysis, not a raw feed.
+
+**2. Live Adzuna postings (bottom card)**
+A GitHub Actions workflow (`.github/workflows/adzuna-refresh.yml`) runs every Monday at 09:00 UTC (or on-demand via the Actions tab → "Run workflow"):
+- `scripts/fetch_adzuna.py` calls the [Adzuna Jobs API](https://developer.adzuna.com/) for a curated set of sport/role keywords across GB/US
+- Writes aggregate counts + sampled average salaries to `data/adzuna_snapshot.json` (no full job descriptions are stored, per Adzuna's ToS)
+- Commits the updated JSON automatically using the workflow's built-in `GITHUB_TOKEN` — no manual push needed
+- `index.html` fetches this JSON client-side at page load and renders it live
+
+### Required setup for the live feed
+
+1. Get free API credentials at [developer.adzuna.com](https://developer.adzuna.com/) (`app_id` + `app_key`).
+2. In this repo: **Settings → Secrets and variables → Actions → New repository secret**, add:
+   - `ADZUNA_APP_ID`
+   - `ADZUNA_APP_KEY`
+3. Confirm Actions is enabled: **Settings → Actions → General → Allow all actions**.
+4. Trigger it once manually: **Actions tab → "Refresh Adzuna job market snapshot" → Run workflow**, so `data/adzuna_snapshot.json` exists before the first Monday.
+
+**Adzuna usage terms:** used under the "Personal or academic research" permitted use in their [ToS](https://developer.adzuna.com/docs/terms_of_service) — attribution to "The Adzuna API" is included on the page and required. Default rate limits (25/min, 250/day) comfortably cover the ~7 weekly queries this script makes.
+
+## Data sources (search-based snapshot)
+
+This is a research snapshot (refreshed 3 Jul 2026), not a live LinkedIn feed — LinkedIn and most club career sites block automated scraping, and no LinkedIn API is connected. Figures were compiled from public job postings and market/salary research:
 
 **Football**
 - [Jobs In Football — Data Science](https://jobsinfootball.com/categories/data-science/)
@@ -48,31 +72,24 @@ This is a research snapshot (refreshed 3 Jul 2026), not a live feed — LinkedIn
 - [Research.com — 2026 Sports Analytics Careers Outlook](https://research.com/advice/sports-analytics-careers-skills-education-salary-job-outlook)
 - [Analytics Sports Jobs — Top hiring companies 2026](https://analyticssportsjobs.com/blog/companies-hiring-most-sports-analysts-2026)
 - [ZipRecruiter — Sports Data Analyst Salary](https://www.ziprecruiter.com/Salaries/Sports-Data-Analyst-Salary)
+- [The Adzuna API](http://www.adzuna.co.uk/) — live postings data (see above)
 
-Salary figures are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise. Since the last refresh: the football data-scientist US salary floor moved from ~$62k to ~$45k (broader aggregator range, Feb 2026 ZipRecruiter data) and the cross-sport entry-level floor moved from ~$55k to ~$50k. Global market size ($5.68B → $23.15B by 2033, 18.5% CAGR), the BLS-linked ~15% role growth outlook, and the top-hiring-employer ranking (FanDuel, Genius Sports, Swish Analytics, MLB, Dream Sports) were all reconfirmed unchanged this run.
+Salary figures in the snapshot sections are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise.
 
-## Publishing this as your own GitHub project
+## Publishing / project structure
 
-1. Create a new empty repo on GitHub (no README/license, so it doesn't conflict): `sports-jobs-market-analyzer`.
-2. On your machine, in the folder with `index.html` and this `README.md`:
-
-```bash
-git init
-git config user.name "Stelios Koptsas"
-git config user.email "s.koptsas@gmail.com"
-git add .
-git commit -m "Initial commit: sports jobs market analyzer dashboard"
-git branch -M main
-git remote add origin https://github.com/<your-username>/sports-jobs-market-analyzer.git
-git push -u origin main
+```
+index.html                          # the dashboard (static, self-contained)
+README.md
+scripts/fetch_adzuna.py             # pulls live Adzuna data
+data/adzuna_snapshot.json           # generated by the workflow, do not hand-edit
+.github/workflows/adzuna-refresh.yml
 ```
 
-3. In the repo on GitHub: **Settings → Pages → Source: `main` branch, `/ (root)`** → Save. After a minute your dashboard is live at `https://<your-username>.github.io/sports-jobs-market-analyzer/`.
-
-Since you run these commands yourself (with your own git config and GitHub login), the commit history and repo are authored under your account.
+Repo: `github.com/skoptsas-commits/Sports-Jobs-Market`, GitHub Pages served from `main` / root.
 
 ## Next steps / ideas
 
-- Refresh the snapshot periodically (ask Claude to re-run the research) and commit updated numbers.
-- Add more sports (tennis, esports, Olympic federations).
-- Turn the static table into a small CSV you version alongside the page, so changes are diffable.
+- Add more sports (tennis, esports, Olympic federations) to both the snapshot and the Adzuna query list.
+- Expand Adzuna queries to more countries (currently GB/US only).
+- Turn the snapshot table into a small versioned CSV so changes are diffable over time.
