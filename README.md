@@ -39,6 +39,8 @@ A GitHub Actions workflow (`.github/workflows/adzuna-refresh.yml`) runs every Mo
 
 **Adzuna usage terms:** used under the "Personal or academic research" permitted use in their [ToS](https://developer.adzuna.com/docs/terms_of_service) — attribution to "The Adzuna API" is included on the page and required. Default rate limits (25/min, 250/day) comfortably cover the ~7 weekly queries this script makes.
 
+**Query matching:** Adzuna's `what` param requires all words in a keyword to appear (phrase/AND-like), which under-counts niche multi-word roles. Each query tries `what` first; if that returns 0, it automatically retries with `what_or` (any word matches) as a fallback. The dashboard table shows a **Match** column (`exact` vs `broad*`) so a 0-turned-broad result is never silently presented as precise.
+
 ## Data sources (search-based snapshot)
 
 This is a research snapshot (refreshed 3 Jul 2026), not a live LinkedIn feed — LinkedIn and most club career sites block automated scraping, and no LinkedIn API is connected. Figures were compiled from public job postings and market/salary research:
