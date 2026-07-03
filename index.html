@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sports Jobs Market Analyzer</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" integrity="sha384-iU8HYtnGQ8Cy4zl7gbNMOhsDTTKX02BTXptVP/vqAWIaTfM7isw76iyZCsjL2eVi" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gridjs@5.0.2/dist/gridjs.umd.js" integrity="sha384-/XXDzxe4FsGiAe50i/u9pY/Vy/uX654MHB1xoc1BJNnH1WXHhqHga9g3q5tF4gj7" crossorigin="anonymous"></script>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px; background: #f7f8fa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1c1e21;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  header { margin-bottom: 20px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .subtitle { color: #5f6368; font-size: 13.5px; line-height: 1.5; margin: 0; }
+  .badge { display:inline-block; background:#eef2ff; color:#3730a3; font-size:11px; font-weight:600; padding:3px 8px; border-radius:20px; margin-left:8px; vertical-align:middle;}
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 20px 0; }
+  .kpi-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 16px; }
+  .kpi-label { font-size: 11.5px; color: #6b7280; text-transform: uppercase; letter-spacing: .03em; margin-bottom: 6px; }
+  .kpi-value { font-size: 21px; font-weight: 700; color: #111827; }
+  .kpi-sub { font-size: 11.5px; color: #6b7280; margin-top: 4px; }
+  .grid2 { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .card { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; }
+  .card h2 { font-size: 14.5px; margin: 0 0 4px; }
+  .card .desc { font-size: 12px; color: #6b7280; margin: 0 0 12px; }
+  .chart-box { position: relative; height: 300px; }
+  .chart-box.small { height: 260px; }
+  table.custom { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  .tag { display:inline-block; background:#f3f4f6; border-radius:6px; padding:2px 6px; margin:2px 3px 2px 0; font-size:11px; color:#374151; }
+  #jobtable { font-size: 12.5px; }
+  .gridjs-wrapper { border-radius: 8px !important; border: 1px solid #e5e7eb !important; box-shadow: none !important; }
+  .gridjs-table { width: 100% !important; border-collapse: collapse; }
+  th.gridjs-th { background: #f9fafb !important; font-size: 11.5px !important; text-transform: uppercase; letter-spacing: .02em; color: #6b7280 !important; border-bottom: 1px solid #e5e7eb !important; padding: 8px 10px !important; }
+  td.gridjs-td { font-size: 12.5px !important; padding: 8px 10px !important; border-bottom: 1px solid #f1f2f4 !important; vertical-align: top; }
+  .gridjs-search-input { border: 1px solid #e5e7eb !important; border-radius: 6px !important; padding: 6px 10px !important; font-size: 12.5px !important; }
+  .gridjs-pagination { font-size: 12px !important; color: #374151 !important; }
+  .gridjs-pagination .gridjs-pages button { border-radius: 6px !important; }
+  footer { margin-top: 20px; font-size: 11.5px; color: #6b7280; }
+  footer a { color: #4f46e5; text-decoration: none; }
+  footer ul { columns: 2; padding-left: 18px; }
+  .note { font-size: 11.5px; color: #92400e; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 8px 12px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Sports Jobs Market Analyzer <span class="badge">Snapshot &middot; July 2026</span></h1>
+    <p class="subtitle">Data Scientist / Sports Scientist / Performance &amp; Data Analyst roles across football, basketball, Formula 1, MotoGP and WorldTour cycling teams. Compiled from public job postings, industry salary aggregators and market research (see Sources below).</p>
+  </header>
+
+  <div class="note">This is a research snapshot, not a live LinkedIn feed — LinkedIn and most team career pages block automated scraping, and there's no connected job-board integration yet. Ask me to re-run the research anytime to refresh the numbers, or connect a jobs/LinkedIn data source if one becomes available.</div>
+
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Global sports analytics market</div>
+      <div class="kpi-value">$5.68B → $23.15B</div>
+      <div class="kpi-sub">2025 → 2033 projected, 18.5% CAGR</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Job posting growth</div>
+      <div class="kpi-value">+18% YoY</div>
+      <div class="kpi-sub">Sports analytics postings, key US metros (LinkedIn)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Role growth outlook</div>
+      <div class="kpi-value">~15%</div>
+      <div class="kpi-sub">Data-analyst roles in sport, through 2032 (BLS-linked)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Entry-level pay (US avg)</div>
+      <div class="kpi-value">$55k–$82k</div>
+      <div class="kpi-sub">Median ≈ $70k across sports</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Typical salary range by sport / role</h2>
+      <p class="desc">Annualised, USD, aggregated from job-board listings (ZipRecruiter/Glassdoor-type data spanning junior→senior). UK football uses GBP — shown separately.</p>
+      <div class="chart-box"><canvas id="salaryChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Cross-sport skill footprint</h2>
+      <p class="desc"># of sports (out of 5) where the skill/tool appears consistently in job postings reviewed.</p>
+      <div class="chart-box small"><canvas id="skillChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <h2>Roles, tools &amp; entry paths by sport</h2>
+    <p class="desc">Sortable — click a column header.</p>
+    <div id="jobtable"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>UK football analyst pay by tier</h2>
+      <p class="desc">Premier League / EFL analyst roles, GBP.</p>
+      <div class="chart-box small"><canvas id="ukChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Who's hiring most (cross-industry, May 2026 snapshot)</h2>
+      <p class="desc">Open analytics roles at a point in time — includes betting/media platforms alongside teams/leagues.</p>
+      <div class="chart-box small"><canvas id="employerChart"></canvas></div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>Sources</strong>
+    <ul>
+      <li><a href="https://jobsinfootball.com/categories/data-science/" target="_blank">Jobs In Football — Data Science</a></li>
+      <li><a href="https://jobsinfootball.com/categories/sports-science/" target="_blank">Jobs In Football — Sports Science</a></li>
+      <li><a href="https://www.learningpeople.com/uk/resources/blog/football-data-jobs/" target="_blank">Learning People — Football data jobs & pay</a></li>
+      <li><a href="https://analyticssportsjobs.com/blog/premier-league-analyst-salary" target="_blank">Analytics Sports Jobs — Football analyst salary UK 2026</a></li>
+      <li><a href="https://analyticssportsjobs.com/salary-report" target="_blank">Analytics Sports Jobs — 2026 Salary Report</a></li>
+      <li><a href="https://www.astonmartinf1.com/en-GB/news/feature/so-you-want-to-be-an-f1-data-engineer" target="_blank">Aston Martin F1 — So you want to be an F1 data engineer?</a></li>
+      <li><a href="https://fluidjobs.com/jobs/data-scientist-jobs" target="_blank">Fluid Jobs — F1/Motorsport Data Science</a></li>
+      <li><a href="https://tracksidecareers.com/blog/sports-data-science-jobs" target="_blank">Trackside Careers — Data Science in Motorsport</a></li>
+      <li><a href="https://www.motogp.com/en/news/2025/04/07/what-is-the-role-of-a-motogp-race-engineerx/1062790" target="_blank">MotoGP.com — Role of a Race Engineer</a></li>
+      <li><a href="https://www.teamworkonline.com/basketball-jobs/los-angeles-lakers/los-angeles-lakers-jobs/data-scientist-2169726" target="_blank">TeamWork Online — Lakers Data Scientist posting</a></li>
+      <li><a href="https://www.ziprecruiter.com/Salaries/Sports-Data-Analyst-Salary" target="_blank">ZipRecruiter — Sports Data Analyst Salary</a></li>
+      <li><a href="https://www.teamwork.net/en/data-performance-teamwork-ineos-grenadiers/" target="_blank">TeamWork.net — INEOS Grenadiers data & performance</a></li>
+      <li><a href="https://www.grandviewresearch.com/industry-analysis/sports-analytics-market" target="_blank">Grand View Research — Sports Analytics Market Size</a></li>
+      <li><a href="https://research.com/advice/sports-analytics-careers-skills-education-salary-job-outlook" target="_blank">Research.com — Sports Analytics Careers Outlook 2026</a></li>
+      <li><a href="https://analyticssportsjobs.com/blog/companies-hiring-most-sports-analysts-2026" target="_blank">Analytics Sports Jobs — Top hiring companies 2026</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+Chart.defaults.font.size = 11.5;
+Chart.defaults.color = '#374151';
+
+// --- Salary range chart (floating bars, USD $k) ---
+const salaryLabels = ['Entry-level (avg, all sports)','Cycling — Data Analyst (US)','Basketball — NBA Analytics (US)','Football — Data Scientist (US club-side)','F1 — Data Science/Engineering (typical)'];
+const salaryRanges = [[55,82],[62,185],[98,151],[62,205],[98,196]];
+new Chart(document.getElementById('salaryChart'), {
+  type: 'bar',
+  data: {
+    labels: salaryLabels,
+    datasets: [{
+      label: 'Salary range ($k/yr)',
+      data: salaryRanges,
+      backgroundColor: 'rgba(79,70,229,0.55)',
+      borderColor: 'rgba(79,70,229,1)',
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: (ctx) => `$${ctx.raw[0]}k – $${ctx.raw[1]}k / yr` } }
+    },
+    scales: {
+      x: { title: { display: true, text: 'USD ($k / year)' }, grid: { color: '#f1f2f4' } },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// --- Cross-sport skill footprint ---
+new Chart(document.getElementById('skillChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Python','R / SQL','Power BI / Tableau','ML frameworks (TF/PyTorch)','Sport-specific platform*'],
+    datasets: [{
+      label: 'Sports where consistently required (of 5)',
+      data: [5,3,2,2,5],
+      backgroundColor: ['#4f46e5','#6366f1','#818cf8','#a5b4fc','#c7d2fe'],
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display:false } },
+    scales: { y: { max: 5, ticks: { stepSize: 1 }, grid: { color: '#f1f2f4' } }, x: { grid: { display:false } } }
+  }
+});
+
+// --- UK football pay tiers ---
+new Chart(document.getElementById('ukChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Academy / entry','Championship / EFL','Premier League (mid)','Premier League (senior/head)'],
+    datasets: [{
+      label: '£k / year',
+      data: [22,32,48,80],
+      backgroundColor: 'rgba(16,185,129,0.6)',
+      borderColor: 'rgba(16,185,129,1)',
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { title: { display: true, text: '£k / year' }, grid: { color:'#f1f2f4' } }, x: { grid: { display:false } } }
+  }
+});
+
+// --- Employer hiring snapshot ---
+new Chart(document.getElementById('employerChart'), {
+  type: 'bar',
+  data: {
+    labels: ['FanDuel','Genius Sports','Swish Analytics','MLB','Dream Sports'],
+    datasets: [{
+      label: 'Open analytics roles',
+      data: [34,25,8,7,7],
+      backgroundColor: 'rgba(234,88,12,0.6)',
+      borderColor: 'rgba(234,88,12,1)',
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: { grid: { color:'#f1f2f4' } }, y: { grid: { display:false } } }
+  }
+});
+
+// --- Table ---
+const tableData = [
+  ['Football (soccer)','Sports Scientist','GPS/wellness data collection, training-load & periodization, reporting frameworks','Catapult, VALD, Kitman Labs, Power BI','MSc Sports Science; CPSS/CSCS certs valued','£23k–£43k (entry-mid, UK)'],
+  ['Football (soccer)','Data Scientist / Analyst','Recruitment models, match/event analysis, predictive modelling','Python, R, SQL, StatsBomb, Opta, Tableau','Stats/Maths/CS degree or Sports Science MSc','$62k–$205k (US club-side, broad)'],
+  ['Basketball (NBA)','Data Scientist / Analyst','Player tracking, trade/strategy models, advanced metrics','Python, R, SQL, Synergy Sports, Second Spectrum, Tableau','Stats/CS/Sports Analytics degree','$98k–$151k (avg $123.8k, US)'],
+  ['Formula 1','Data Scientist / Engineer','Telemetry analysis, ML for strategy, vehicle dynamics support','Python, MATLAB, R, TensorFlow/PyTorch','MSc/PhD Applied Maths, ML or Engineering','$98k–$196k typical (up to $358k senior)'],
+  ['MotoGP','Data Analyst / Race Engineer','~60-sensor telemetry download & calibration, rider-feedback integration','Python, proprietary data-acquisition systems','Engineering degree; advanced degree for strategy roles','Not consistently public — engineering-role parity assumed'],
+  ['Cycling (WorldTour)','Performance / Data Analyst','Training & race data integration, power-file analysis, platform management','Python, R, SQL, TrainingPeaks, Strava, WKO','Sports Science/Data Science background','$62k–$185k (US postings, broad)'],
+];
+new gridjs.Grid({
+  columns: ['Sport','Role','Core responsibilities','Tools & platforms','Typical education / entry path','Typical salary'],
+  data: tableData,
+  sort: true,
+  resizable: true,
+  search: true,
+  className: { table: 'custom' },
+}).render(document.getElementById('jobtable'));
+</script>
+</body>
+</html>
