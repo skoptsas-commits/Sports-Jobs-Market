@@ -43,27 +43,28 @@ A GitHub Actions workflow (`.github/workflows/adzuna-refresh.yml`) runs every Mo
 
 ## Data sources (search-based snapshot)
 
-This is a research snapshot (refreshed 3 Jul 2026), not a live LinkedIn feed — LinkedIn and most club career sites block automated scraping, and no LinkedIn API is connected. Figures were compiled from public job postings and market/salary research:
+This is a research snapshot (refreshed 6 Jul 2026), not a live LinkedIn feed — LinkedIn and most club career sites block automated scraping, and no LinkedIn API is connected. Figures were compiled from public job postings and market/salary research:
 
 **Football**
 - [Jobs In Football — Data Science](https://jobsinfootball.com/categories/data-science/)
-- [Jobs In Football — Sports Science](https://jobsinfootball.com/categories/sports-science/)
+- [Jobs In Football — Sport Scientist posting](https://jobsinfootball.com/job/124625/sport-scientist/)
 - [ZipRecruiter — Football Data Science Jobs](https://www.ziprecruiter.com/Jobs/Football-Data-Science)
 - [CASES — Football Data Scientist posting](https://www.cases.org.uk/advert-football_data_scientist.html)
 - [Catapult One — Sports science and football](https://one.catapultsports.com/blog/sports-science-and-football/)
+- [SportsProJobs — Sports Science Jobs & Salary 2026](https://sportsprojobs.net/sports-science-jobs/)
 
 **Basketball (NBA)**
 - [ZipRecruiter — NBA Analytics salary](https://www.ziprecruiter.com/Jobs/Nba-Analytics)
-- [TeamWork Online — LA Lakers Data Scientist posting](https://www.teamworkonline.com/basketball-jobs/los-angeles-lakers/los-angeles-lakers-jobs/data-scientist-2169726)
+- [SportsJobs Online — NBA Team Data Scientist posting](https://www.sportsjobs.online/jobs/12648-team-data-scientist)
 
 **Formula 1**
 - [Aston Martin F1 — So you want to be an F1 data engineer?](https://www.astonmartinf1.com/en-GB/news/feature/so-you-want-to-be-an-f1-data-engineer)
 - [ZipRecruiter — Formula 1 Data Science Jobs](https://www.ziprecruiter.com/Jobs/Formula-1-Data-Science)
-- [Fluid Jobs — F1/Motorsport Data Science listings](https://fluidjobs.com/jobs/data-scientist-jobs)
+- [Motorsportjobs.com — F1 Data Scientist posting](https://www.motorsportjobs.com/us/job/data-scientist-11)
 
 **MotoGP**
 - [MotoGP.com — What is the role of a MotoGP Race Engineer?](https://www.motogp.com/en/news/2025/04/07/what-is-the-role-of-a-motogp-race-engineerx/1062790)
-- [Trackside Careers — Performance Engineer Jobs in Motorsport](https://tracksidecareers.com/blog/performance-engineer-jobs)
+- [Trackside Careers — Sports Data Science Jobs in Motorsport](https://tracksidecareers.com/blog/sports-data-science-jobs)
 
 **Cycling (WorldTour)**
 - [TeamWork.net — Data & Performance: TeamWork supports INEOS Grenadiers](https://www.teamwork.net/en/data-performance-teamwork-ineos-grenadiers/)
@@ -76,7 +77,7 @@ This is a research snapshot (refreshed 3 Jul 2026), not a live LinkedIn feed —
 - [ZipRecruiter — Sports Data Analyst Salary](https://www.ziprecruiter.com/Salaries/Sports-Data-Analyst-Salary)
 - [The Adzuna API](http://www.adzuna.co.uk/) — live postings data (see above)
 
-Salary figures in the snapshot sections are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise.
+Salary figures in the snapshot sections are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise. This run's research confirmed the previously published ranges (football, NBA, F1, cycling) are still broadly accurate; no material changes to KPI figures were needed, only source refresh and a MotoGP tooling note (Matplotlib/Seaborn added alongside Python).
 
 ## Publishing / project structure
 
