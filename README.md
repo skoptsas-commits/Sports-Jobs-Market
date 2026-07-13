@@ -43,41 +43,44 @@ A GitHub Actions workflow (`.github/workflows/adzuna-refresh.yml`) runs every Mo
 
 ## Data sources (search-based snapshot)
 
-This is a research snapshot (refreshed 6 Jul 2026), not a live LinkedIn feed — LinkedIn and most club career sites block automated scraping, and no LinkedIn API is connected. Figures were compiled from public job postings and market/salary research:
+This is a research snapshot (refreshed 13 Jul 2026), not a live LinkedIn feed — LinkedIn and most club career sites block automated scraping, and no LinkedIn API is connected. Figures were compiled from public job postings and market/salary research:
 
 **Football**
 - [Jobs In Football — Data Science](https://jobsinfootball.com/categories/data-science/)
-- [Jobs In Football — Sport Scientist posting](https://jobsinfootball.com/job/124625/sport-scientist/)
+- [Jobs In Football — Club Data Scientist posting](https://jobsinfootball.com/job/128101/club-data-scientist-junior-or-senior/)
 - [ZipRecruiter — Football Data Science Jobs](https://www.ziprecruiter.com/Jobs/Football-Data-Science)
-- [CASES — Football Data Scientist posting](https://www.cases.org.uk/advert-football_data_scientist.html)
+- [Jobs In Football — Sport Scientist posting](https://jobsinfootball.com/job/124625/sport-scientist/)
 - [Catapult One — Sports science and football](https://one.catapultsports.com/blog/sports-science-and-football/)
-- [SportsProJobs — Sports Science Jobs & Salary 2026](https://sportsprojobs.net/sports-science-jobs/)
 
 **Basketball (NBA)**
 - [ZipRecruiter — NBA Analytics salary](https://www.ziprecruiter.com/Jobs/Nba-Analytics)
 - [SportsJobs Online — NBA Team Data Scientist posting](https://www.sportsjobs.online/jobs/12648-team-data-scientist)
+- [NBA Careers — Data Analytics roles](https://nbacareers.nba.com/go/Data-Analytics/3222801/)
 
 **Formula 1**
-- [Aston Martin F1 — So you want to be an F1 data engineer?](https://www.astonmartinf1.com/en-GB/news/feature/so-you-want-to-be-an-f1-data-engineer)
 - [ZipRecruiter — Formula 1 Data Science Jobs](https://www.ziprecruiter.com/Jobs/Formula-1-Data-Science)
-- [Motorsportjobs.com — F1 Data Scientist posting](https://www.motorsportjobs.com/us/job/data-scientist-11)
+- [Fluid Jobs — F1 & Motorsport Data Science Jobs](https://fluidjobs.com/jobs/data-scientist-jobs)
+- [Trackside Careers — Guide to Securing a Formula One Team Job](https://tracksidecareers.com/blog/formula-one-team-jobs)
 
 **MotoGP**
 - [MotoGP.com — What is the role of a MotoGP Race Engineer?](https://www.motogp.com/en/news/2025/04/07/what-is-the-role-of-a-motogp-race-engineerx/1062790)
 - [Trackside Careers — Sports Data Science Jobs in Motorsport](https://tracksidecareers.com/blog/sports-data-science-jobs)
 
 **Cycling (WorldTour)**
-- [TeamWork.net — Data & Performance: TeamWork supports INEOS Grenadiers](https://www.teamwork.net/en/data-performance-teamwork-ineos-grenadiers/)
+- [Huntr — Data Analyst Jobs in Cycling Companies](https://huntr.co/jobs/data-analyst-jobs-in-cycling-companies)
 - [ZipRecruiter — Cycling Data Analyst Jobs](https://www.ziprecruiter.com/Jobs/Cycling-Data-Analyst)
+- [Magicshine — The Rise of Data-Driven Cycling Teams in 2026](https://magicshine.com/blogs/news/are-scientists-replacing-star-riders-the-rise-of-data-driven-cycling-teams-in-2026)
 
 **Market size & hiring trends**
 - [Grand View Research — Sports Analytics Market Size Report](https://www.grandviewresearch.com/industry-analysis/sports-analytics-market)
 - [Research.com — 2026 Sports Analytics Careers Outlook](https://research.com/advice/sports-analytics-careers-skills-education-salary-job-outlook)
 - [Analytics Sports Jobs — Top hiring companies 2026](https://analyticssportsjobs.com/blog/companies-hiring-most-sports-analysts-2026)
 - [ZipRecruiter — Sports Data Analyst Salary](https://www.ziprecruiter.com/Salaries/Sports-Data-Analyst-Salary)
+- [Glassdoor — Sports Data Analyst Salary](https://www.glassdoor.com/Salaries/sports-data-analyst-salary-SRCH_KO0,19.htm)
+- [U.S. Bureau of Labor Statistics — Employment Projections 2022–2032](https://www.bls.gov/news.release/archives/ecopro_09062023.pdf)
 - [The Adzuna API](http://www.adzuna.co.uk/) — live postings data (see above)
 
-Salary figures in the snapshot sections are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise. This run's research confirmed the previously published ranges (football, NBA, F1, cycling) are still broadly accurate; no material changes to KPI figures were needed, only source refresh and a MotoGP tooling note (Matplotlib/Seaborn added alongside Python).
+Salary figures in the snapshot sections are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise. This run's research reconfirmed the market-size ($5.68B→$23.15B, 18.5% CAGR), role-growth (~15% BLS-linked) and top-employer figures (FanDuel, Genius Sports, Swish Analytics, MLB, Dream Sports) are still current; no material changes to KPI figures or salary ranges were needed, only a source refresh.
 
 ## Publishing / project structure
 
