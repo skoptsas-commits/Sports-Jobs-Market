@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-07-06T17:58:24.410891+00:00",
+  "generated_at": "2026-07-13T17:21:45.978866+00:00",
   "source": "The Adzuna API",
   "attribution_url": "http://www.adzuna.co.uk/",
   "queries": [
     {
       "keyword": "sports data scientist",
       "country": "us",
-      "count": 4,
+      "count": 3,
       "match_type": "precise (all words)",
-      "sample_size": 4,
-      "avg_salary_min": 107113.0,
-      "avg_salary_max": 116176.0
+      "sample_size": 3,
+      "avg_salary_min": 116158.0,
+      "avg_salary_max": 128241.0
     },
     {
       "keyword": "sports scientist football",
@@ -24,47 +24,47 @@
     {
       "keyword": "sports analyst",
       "country": "gb",
-      "count": 23,
+      "count": 22,
       "match_type": "precise (all words)",
       "sample_size": 20,
-      "avg_salary_min": 50185.0,
-      "avg_salary_max": 54615.0
+      "avg_salary_min": 41412.0,
+      "avg_salary_max": 47021.0
     },
     {
       "keyword": "performance analyst",
       "country": "gb",
-      "count": 341,
+      "count": 335,
       "match_type": "precise (all words)",
       "sample_size": 20,
-      "avg_salary_min": 53291.0,
-      "avg_salary_max": 54450.0
+      "avg_salary_min": 55654.0,
+      "avg_salary_max": 66636.0
     },
     {
       "keyword": "motorsport engineer",
       "country": "gb",
-      "count": 180,
+      "count": 170,
       "match_type": "precise (all words)",
       "sample_size": 20,
-      "avg_salary_min": 48892.0,
-      "avg_salary_max": 53458.0
+      "avg_salary_min": 44873.0,
+      "avg_salary_max": 48590.0
     },
     {
       "keyword": "cycling analyst",
       "country": "gb",
-      "count": 10,
+      "count": 8,
       "match_type": "precise (all words)",
-      "sample_size": 10,
-      "avg_salary_min": 44456.0,
-      "avg_salary_max": 50457.0
+      "sample_size": 8,
+      "avg_salary_min": 44604.0,
+      "avg_salary_max": 52106.0
     },
     {
       "keyword": "basketball analyst",
       "country": "us",
-      "count": 2,
+      "count": 3,
       "match_type": "precise (all words)",
-      "sample_size": 2,
-      "avg_salary_min": 150000.0,
-      "avg_salary_max": 170000.0
+      "sample_size": 3,
+      "avg_salary_min": 128333.0,
+      "avg_salary_max": 145000.0
     }
   ]
 }
