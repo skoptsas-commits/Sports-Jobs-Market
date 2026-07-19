@@ -32,6 +32,13 @@
   .chart-box.small { height: 260px; }
   table.custom { width: 100%; border-collapse: collapse; font-size: 12.5px; }
   .tag { display:inline-block; background:#f3f4f6; border-radius:6px; padding:2px 6px; margin:2px 3px 2px 0; font-size:11px; color:#374151; }
+  .tag-domain { display:inline-block; background:#fff7ed; color:#9a3412; border:1px solid #fed7aa; border-radius:6px; padding:2px 6px; margin:2px 3px 2px 0; font-size:11px; }
+  .tag-general { display:inline-block; background:#eef2ff; color:#3730a3; border:1px solid #c7d2fe; border-radius:6px; padding:2px 6px; margin:2px 3px 2px 0; font-size:11px; }
+  .loc-badge { border-radius:20px; padding:2px 8px; font-size:11px; font-weight:600; }
+  .loc-onsite { background:#ecfdf5; color:#065f46; }
+  .loc-hybrid { background:#fefce8; color:#854d0e; }
+  .loc-remote { background:#eff6ff; color:#1e40af; }
+  #sportFilter { margin-bottom:12px; padding:6px 10px; border:1px solid #e5e7eb; border-radius:6px; font-size:12.5px; background:#fff; color:#1c1e21; }
   #jobtable, #adzunaTable { font-size: 12.5px; }
   .gridjs-wrapper { border-radius: 8px !important; border: 1px solid #e5e7eb !important; box-shadow: none !important; }
   .gridjs-table { width: 100% !important; border-collapse: collapse; }
@@ -79,6 +86,18 @@
       <div class="kpi-value">$50k–$82k</div>
       <div class="kpi-sub">Median ≈ $66k across sports</div>
     </div>
+  </div>
+
+  <div>
+    <label for="sportFilter" style="font-size:12px;color:#6b7280;margin-right:6px;">Filter by sport:</label>
+    <select id="sportFilter" onchange="applyFilter(this.value)">
+      <option value="all">All Sports</option>
+      <option value="football">Football</option>
+      <option value="basketball">Basketball</option>
+      <option value="f1">F1</option>
+      <option value="motogp">MotoGP</option>
+      <option value="cycling">Cycling</option>
+    </select>
   </div>
 
   <div class="grid2">
@@ -155,56 +174,76 @@ Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Rob
 Chart.defaults.font.size = 11.5;
 Chart.defaults.color = '#374151';
 
-// --- Salary range chart (floating bars, USD $k) ---
-const salaryLabels = ['Entry-level (avg, all sports)','Cycling — Data Analyst (US)','Basketball — NBA Analytics (US)','Football — Data Scientist (US club-side)','F1 — Data Science/Engineering (typical)'];
-const salaryRanges = [[50,82],[62,185],[98,151],[45,205],[98,196]];
-new Chart(document.getElementById('salaryChart'), {
-  type: 'bar',
-  data: {
-    labels: salaryLabels,
-    datasets: [{
-      label: 'Salary range ($k/yr)',
-      data: salaryRanges,
-      backgroundColor: 'rgba(79,70,229,0.55)',
-      borderColor: 'rgba(79,70,229,1)',
-      borderWidth: 1,
-      borderRadius: 4,
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: { display: false },
-      tooltip: { callbacks: { label: (ctx) => `$${ctx.raw[0]}k – $${ctx.raw[1]}k / yr` } }
-    },
-    scales: {
-      x: { title: { display: true, text: 'USD ($k / year)' }, grid: { color: '#f1f2f4' } },
-      y: { grid: { display: false } }
-    }
-  }
-});
+// --- Domain tools vs general tech ---
+const DOMAIN_TOOLS = new Set(['Catapult','VALD','Kitman Labs','StatsBomb','Opta','MATLAB','Synergy Sports','Second Spectrum','TrainingPeaks','Strava','WKO']);
+const tagClass = t => DOMAIN_TOOLS.has(t) ? 'tag-domain' : 'tag-general';
+const locMap = { onsite: ['Trackside/On-site','loc-onsite'], hybrid: ['Hybrid','loc-hybrid'], remote: ['Remote','loc-remote'] };
+const locBadge = l => { const [label, cls] = locMap[l] || locMap.onsite; return `<span class="loc-badge ${cls}">${label}</span>`; };
 
-// --- Cross-sport skill footprint ---
-new Chart(document.getElementById('skillChart'), {
-  type: 'bar',
-  data: {
-    labels: ['Python','R / SQL','Power BI / Tableau','ML frameworks (TF/PyTorch)','Sport-specific platform*'],
-    datasets: [{
-      label: 'Sports where consistently required (of 5)',
-      data: [5,3,2,2,5],
-      backgroundColor: ['#4f46e5','#6366f1','#818cf8','#a5b4fc','#c7d2fe'],
-      borderRadius: 4,
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: { legend: { display:false } },
-    scales: { y: { max: 5, ticks: { stepSize: 1 }, grid: { color: '#f1f2f4' } }, x: { grid: { display:false } } }
-  }
-});
+// --- Role data (drives table + salary chart filtering) ---
+const roleData = [
+  { sport:'football', sportLabel:'Football (soccer)', role:'Sports Scientist', resp:'GPS/wellness data collection, training-load & periodization, reporting frameworks', tools:['Catapult','VALD','Kitman Labs','Power BI'], edu:'MSc Sports Science; CPSS/CSCS certs valued', salary:'£23k–£43k (entry-mid, UK)', salaryRange:[28,54], location:'onsite' },
+  { sport:'football', sportLabel:'Football (soccer)', role:'Data Scientist / Analyst', resp:'Recruitment models, match/event analysis, predictive modelling', tools:['Python','R','SQL','StatsBomb','Opta','Tableau'], edu:'Stats/Maths/CS degree or Sports Science MSc', salary:'$45k–$205k (US club-side, broad)', salaryRange:[45,205], location:'hybrid' },
+  { sport:'basketball', sportLabel:'Basketball (NBA)', role:'Data Scientist / Analyst', resp:'Player tracking, trade/strategy models, advanced metrics', tools:['Python','R','SQL','Synergy Sports','Second Spectrum','Tableau'], edu:'Stats/CS/Sports Analytics degree', salary:'$98k–$151k (avg $123.8k, US)', salaryRange:[98,151], location:'hybrid' },
+  { sport:'f1', sportLabel:'Formula 1', role:'Data Scientist / Engineer', resp:'Telemetry analysis, ML for strategy, vehicle dynamics support', tools:['Python','MATLAB','R','TensorFlow','PyTorch'], edu:'MSc/PhD Applied Maths, ML or Engineering', salary:'$98k–$196k typical (up to $358k senior)', salaryRange:[98,196], location:'onsite' },
+  { sport:'motogp', sportLabel:'MotoGP', role:'Data Analyst / Race Engineer', resp:'~60-sensor telemetry download & calibration, rider-feedback integration', tools:['Python','Matplotlib','Seaborn'], edu:'Engineering degree; advanced degree for strategy roles', salary:'Not consistently public — engineering-role parity assumed', salaryRange:[80,180], location:'onsite' },
+  { sport:'cycling', sportLabel:'Cycling (WorldTour)', role:'Performance / Data Analyst', resp:'Training & race data integration, power-file analysis, platform management', tools:['Python','R','SQL','TrainingPeaks','Strava','WKO'], edu:'Sports Science/Data Science background', salary:'$62k–$185k (US postings, broad)', salaryRange:[62,185], location:'remote' },
+];
+
+// --- Salary range chart (floating bars, USD $k) ---
+let salaryChartInstance;
+function renderSalaryChart(filter) {
+  const rows = filter === 'all' ? roleData : roleData.filter(r => r.sport === filter);
+  const labels = filter === 'all'
+    ? ['Entry-level (avg, all sports)', ...rows.map(r => `${r.sportLabel} — ${r.role}`)]
+    : rows.map(r => `${r.sportLabel} — ${r.role}`);
+  const data = filter === 'all'
+    ? [[50,82], ...rows.map(r => r.salaryRange)]
+    : rows.map(r => r.salaryRange);
+  if (salaryChartInstance) salaryChartInstance.destroy();
+  salaryChartInstance = new Chart(document.getElementById('salaryChart'), {
+    type: 'bar',
+    data: { labels, datasets: [{ label: 'Salary range ($k/yr)', data, backgroundColor: 'rgba(79,70,229,0.55)', borderColor: 'rgba(79,70,229,1)', borderWidth: 1, borderRadius: 4 }] },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => `$${ctx.raw[0]}k – $${ctx.raw[1]}k / yr` } } },
+      scales: { x: { title: { display: true, text: 'USD ($k / year)' }, grid: { color: '#f1f2f4' } }, y: { grid: { display: false } } }
+    }
+  });
+}
+
+// --- Cross-sport skill footprint (domain tools vs general tech highlighted) ---
+let skillChartInstance;
+function renderSkillChart() {
+  const skillData = [
+    { name: 'Python', count: 5, type: 'general' },
+    { name: 'R / SQL', count: 3, type: 'general' },
+    { name: 'Power BI / Tableau', count: 2, type: 'general' },
+    { name: 'ML frameworks (TF/PyTorch/MATLAB)', count: 2, type: 'general' },
+    { name: 'Domain platform (StatsBomb/Catapult/Opta)', count: 5, type: 'domain' },
+  ];
+  if (skillChartInstance) skillChartInstance.destroy();
+  skillChartInstance = new Chart(document.getElementById('skillChart'), {
+    type: 'bar',
+    data: {
+      labels: skillData.map(s => s.name),
+      datasets: [{
+        label: 'Sports where consistently required (of 5)',
+        data: skillData.map(s => s.count),
+        backgroundColor: skillData.map(s => s.type === 'domain' ? '#ea580c' : '#4f46e5'),
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: true, labels: { generateLabels: () => [
+        { text: 'Domain Tools', fillStyle: '#ea580c', strokeStyle: '#ea580c' },
+        { text: 'General Tech', fillStyle: '#4f46e5', strokeStyle: '#4f46e5' },
+      ] } } },
+      scales: { y: { max: 5, ticks: { stepSize: 1 }, grid: { color: '#f1f2f4' } }, x: { grid: { display: false } } }
+    }
+  });
+}
 
 // --- UK football pay tiers ---
 new Chart(document.getElementById('ukChart'), {
@@ -249,23 +288,34 @@ new Chart(document.getElementById('employerChart'), {
   }
 });
 
-// --- Table ---
-const tableData = [
-  ['Football (soccer)','Sports Scientist','GPS/wellness data collection, training-load & periodization, reporting frameworks','Catapult, VALD, Kitman Labs, Power BI','MSc Sports Science; CPSS/CSCS certs valued','£23k–£43k (entry-mid, UK)'],
-  ['Football (soccer)','Data Scientist / Analyst','Recruitment models, match/event analysis, predictive modelling','Python, R, SQL, StatsBomb, Opta, Tableau','Stats/Maths/CS degree or Sports Science MSc','$45k–$205k (US club-side, broad)'],
-  ['Basketball (NBA)','Data Scientist / Analyst','Player tracking, trade/strategy models, advanced metrics','Python, R, SQL, Synergy Sports, Second Spectrum, Tableau','Stats/CS/Sports Analytics degree','$98k–$151k (avg $123.8k, US)'],
-  ['Formula 1','Data Scientist / Engineer','Telemetry analysis, ML for strategy, vehicle dynamics support','Python, MATLAB, R, TensorFlow/PyTorch','MSc/PhD Applied Maths, ML or Engineering','$98k–$196k typical (up to $358k senior)'],
-  ['MotoGP','Data Analyst / Race Engineer','~60-sensor telemetry download & calibration, rider-feedback integration','Python, Matplotlib/Seaborn, proprietary data-acquisition systems','Engineering degree; advanced degree for strategy roles','Not consistently public — engineering-role parity assumed'],
-  ['Cycling (WorldTour)','Performance / Data Analyst','Training & race data integration, power-file analysis, platform management','Python, R, SQL, TrainingPeaks, Strava, WKO','Sports Science/Data Science background','$62k–$185k (US postings, broad)'],
-];
-new gridjs.Grid({
-  columns: ['Sport','Role','Core responsibilities','Tools & platforms','Typical education / entry path','Typical salary'],
-  data: tableData,
-  sort: true,
-  resizable: true,
-  search: true,
-  className: { table: 'custom' },
-}).render(document.getElementById('jobtable'));
+// --- Table (filterable by sport) ---
+function renderTable(filter) {
+  const rows = filter === 'all' ? roleData : roleData.filter(r => r.sport === filter);
+  const data = rows.map(r => [
+    r.sportLabel, r.role, r.resp,
+    gridjs.html(r.tools.map(t => `<span class="${tagClass(t)}">${t}</span>`).join(' ')),
+    r.edu, r.salary,
+    gridjs.html(locBadge(r.location)),
+  ]);
+  document.getElementById('jobtable').innerHTML = '';
+  new gridjs.Grid({
+    columns: ['Sport','Role','Core responsibilities','Tools & platforms','Typical education / entry path','Typical salary','Location'],
+    data,
+    sort: true,
+    resizable: true,
+    search: true,
+    className: { table: 'custom' },
+  }).render(document.getElementById('jobtable'));
+}
+
+function applyFilter(sport) {
+  renderTable(sport);
+  renderSalaryChart(sport);
+}
+
+renderTable('all');
+renderSalaryChart('all');
+renderSkillChart();
 
 // --- Live Adzuna snapshot ---
 fetch('data/adzuna_snapshot.json', { cache: 'no-store' })
