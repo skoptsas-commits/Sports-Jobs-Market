@@ -1,70 +1,74 @@
 {
-  "generated_at": "2026-07-13T17:21:45.978866+00:00",
+  "generated_at": "2026-07-20T16:00:02.355291+00:00",
   "source": "The Adzuna API",
   "attribution_url": "http://www.adzuna.co.uk/",
   "queries": [
     {
       "keyword": "sports data scientist",
       "country": "us",
-      "count": 3,
-      "match_type": "precise (all words)",
-      "sample_size": 3,
-      "avg_salary_min": 116158.0,
-      "avg_salary_max": 128241.0
+      "count": null,
+      "match_type": "error",
+      "sample_size": 0,
+      "avg_salary_min": null,
+      "avg_salary_max": null,
+      "error": "HTTP Error 503: Service Temporarily Unavailable"
     },
     {
       "keyword": "sports scientist football",
       "country": "gb",
-      "count": 1,
-      "match_type": "precise (all words)",
-      "sample_size": 1,
-      "avg_salary_min": 29198.0,
-      "avg_salary_max": 29198.0
+      "count": null,
+      "match_type": "error",
+      "sample_size": 0,
+      "avg_salary_min": null,
+      "avg_salary_max": null,
+      "error": "HTTP Error 503: Service Temporarily Unavailable"
     },
     {
       "keyword": "sports analyst",
       "country": "gb",
-      "count": 22,
+      "count": 17,
       "match_type": "precise (all words)",
-      "sample_size": 20,
-      "avg_salary_min": 41412.0,
-      "avg_salary_max": 47021.0
+      "sample_size": 17,
+      "avg_salary_min": 44023.0,
+      "avg_salary_max": 48435.0
     },
     {
       "keyword": "performance analyst",
       "country": "gb",
-      "count": 335,
+      "count": 334,
       "match_type": "precise (all words)",
       "sample_size": 20,
-      "avg_salary_min": 55654.0,
-      "avg_salary_max": 66636.0
+      "avg_salary_min": 49883.0,
+      "avg_salary_max": 59142.0
     },
     {
       "keyword": "motorsport engineer",
       "country": "gb",
-      "count": 170,
-      "match_type": "precise (all words)",
-      "sample_size": 20,
-      "avg_salary_min": 44873.0,
-      "avg_salary_max": 48590.0
+      "count": null,
+      "match_type": "error",
+      "sample_size": 0,
+      "avg_salary_min": null,
+      "avg_salary_max": null,
+      "error": "HTTP Error 503: Service Temporarily Unavailable"
     },
     {
       "keyword": "cycling analyst",
       "country": "gb",
-      "count": 8,
-      "match_type": "precise (all words)",
-      "sample_size": 8,
-      "avg_salary_min": 44604.0,
-      "avg_salary_max": 52106.0
+      "count": null,
+      "match_type": "error",
+      "sample_size": 0,
+      "avg_salary_min": null,
+      "avg_salary_max": null,
+      "error": "HTTP Error 503: Service Temporarily Unavailable"
     },
     {
       "keyword": "basketball analyst",
       "country": "us",
-      "count": 3,
+      "count": 4,
       "match_type": "precise (all words)",
-      "sample_size": 3,
-      "avg_salary_min": 128333.0,
-      "avg_salary_max": 145000.0
+      "sample_size": 4,
+      "avg_salary_min": 128875.0,
+      "avg_salary_max": 138875.0
     }
   ]
 }
