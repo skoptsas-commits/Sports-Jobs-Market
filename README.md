@@ -43,50 +43,52 @@ A GitHub Actions workflow (`.github/workflows/adzuna-refresh.yml`) runs every Mo
 
 ## Data sources (search-based snapshot)
 
-This is a research snapshot (refreshed 4 Aug 2026), not a live LinkedIn feed — LinkedIn and most club career sites block automated scraping, and no LinkedIn API is connected. Figures were compiled from public job postings and market/salary research:
+This is a research snapshot (refreshed 10 Aug 2026), not a live LinkedIn feed — LinkedIn and most club career sites block automated scraping, and no LinkedIn API is connected. Figures were compiled from public job postings and market/salary research:
 
 **Football**
 - [Jobs In Football — Data Science category](https://jobsinfootball.com/categories/data-science/)
 - [Jobs In Football — Club Data Scientist posting](https://jobsinfootball.com/job/128101/club-data-scientist-junior-or-senior/)
 - [ZipRecruiter — Football Data Science Jobs](https://www.ziprecruiter.com/Jobs/Football-Data-Science)
-- [Jobs In Football — Sport Scientist posting](https://jobsinfootball.com/job/124625/sport-scientist/)
-- [Jobs In Football — Sports Science category](https://jobsinfootball.com/categories/sports-science/)
-- [Catapult One — Sports science and football](https://one.catapultsports.com/blog/sports-science-and-football/)
+- [Liverpool FC Careers — Lead Data Scientist](https://careers.liverpoolfc.com/members/modules/job/detail.php?record=826)
 - [The PFSA — Data Scientist careers](https://thepfsa.co.uk/careers/data-scientist/)
+- [Jobs In Football — Sport Scientist posting](https://jobsinfootball.com/job/124625/sport-scientist/)
+- [Catapult One — Sports science and football](https://one.catapultsports.com/blog/sports-science-and-football/)
 
 **Basketball (NBA)**
 - [ZipRecruiter — NBA Analytics salary](https://www.ziprecruiter.com/Jobs/Nba-Analytics)
 - [ZipRecruiter — NBA Data Analyst Jobs](https://www.ziprecruiter.com/Jobs/Nba-Data-Analyst)
-- [SportsJobs Online — NBA Team Data Scientist posting](https://www.sportsjobs.online/jobs/12648-team-data-scientist)
+- [ZipRecruiter — NBA Data Science Jobs](https://www.ziprecruiter.com/Jobs/Nba-Data-Science)
 - [Establish The Run — NBA Data Scientist job posting](https://establishtherun.com/etr-job-posting-nba-data-scientist/)
+- [SportsJobs Online — NBA Team Data Scientist posting](https://www.sportsjobs.online/jobs/12648-team-data-scientist)
 
 **Formula 1**
 - [ZipRecruiter — Formula 1 Data Science Jobs](https://www.ziprecruiter.com/Jobs/Formula-1-Data-Science)
 - [ZipRecruiter — F1 Data Science Jobs](https://www.ziprecruiter.com/Jobs/F1-Data-Science)
 - [Fluid Jobs — F1 & Motorsport Data Science Jobs](https://fluidjobs.com/jobs/data-scientist-jobs)
+- [Aston Martin F1 Team — So, you want to be an F1 data engineer?](https://www.astonmartinf1.com/en-GB/news/feature/so-you-want-to-be-an-f1-data-engineer)
+- [Trackside Careers — Sports Data Science Jobs in Motorsport](https://tracksidecareers.com/blog/sports-data-science-jobs)
 
 **MotoGP**
 - [MotoGP.com — What is the role of a MotoGP Race Engineer?](https://www.motogp.com/en/news/2025/04/07/what-is-the-role-of-a-motogp-race-engineerx/1062790)
-- [Trackside Careers — Sports Data Science Jobs in Motorsport](https://tracksidecareers.com/blog/sports-data-science-jobs)
 - [Trackside Careers — Performance Engineer Jobs in Motorsport](https://tracksidecareers.com/blog/performance-engineer-jobs)
+- [NDA Motorsport — Race Strategy & Data Analysis Jobs](https://motorsport.nda.ac.uk/motorsport-careers/motorsport-race-strategy-and-data-analysis-jobs/)
 
 **Cycling (WorldTour)**
-- [Huntr — Data Analyst Jobs in Cycling Companies](https://huntr.co/jobs/data-analyst-jobs-in-cycling-companies)
 - [ZipRecruiter — Cycling Data Analyst Jobs](https://www.ziprecruiter.com/Jobs/Cycling-Data-Analyst)
+- [Huntr — Data Analyst Jobs in Cycling Companies](https://huntr.co/jobs/data-analyst-jobs-in-cycling-companies)
 - [Magicshine — The Rise of Data-Driven Cycling Teams in 2026](https://magicshine.com/blogs/news/are-scientists-replacing-star-riders-the-rise-of-data-driven-cycling-teams-in-2026)
 
 **Market size & hiring trends**
 - [Grand View Research — Sports Analytics Market Size Report](https://www.grandviewresearch.com/industry-analysis/sports-analytics-market)
 - [Research.com — Fastest-Growing Careers for Sports Analytics Grads](https://research.com/advice/fastest-growing-careers-for-sports-analytics-degree-graduates)
-- [Research.com — Sports Analytics Careers: Skills, Education, Salary & Job Outlook](https://research.com/advice/sports-analytics-careers-skills-education-salary-job-outlook)
 - [Research.com — Sports Analytics Degree Salary by Experience Level](https://research.com/advice/sports-analytics-degree-salary-by-experience-level)
-- [Analytics Sports Jobs — Top hiring companies 2026](https://analyticssportsjobs.com/blog/companies-hiring-most-sports-analysts-2026)
+- [Research.com — Which Employers Hire Sports Analytics Grads](https://research.com/advice/which-employers-hire-sports-analytics-degree-graduates-industries-roles-hiring-patterns)
 - [ZipRecruiter — Sports Data Analyst Salary](https://www.ziprecruiter.com/Salaries/Sports-Data-Analyst-Salary)
-- [ZipRecruiter — Sports Analytics Salary](https://www.ziprecruiter.com/Salaries/Sports-Analytics-Salary)
 - [Glassdoor — Sports Data Analyst Salary](https://www.glassdoor.com/Salaries/sports-data-analyst-salary-SRCH_KO0,19.htm)
+- [Analytics Sports Jobs — Entry-Level Sports Analytics Salary](https://analyticssportsjobs.com/blog/entry-level-sports-analytics-salary)
 - [The Adzuna API](http://www.adzuna.co.uk/) — live postings data (see above)
 
-Salary figures in the snapshot sections are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise. This run's research reconfirmed the market-size ($5.68B→$23.15B, 18.5% CAGR), by-role salary ranges (football, NBA, F1, cycling — several listings matched the prior figures almost exactly, e.g. NBA Analytics $98k–$151k and Cycling Data Analyst $62k–$185k) and the employment-growth outlook (~28% through 2032) as still current. The top-hiring-employers figures (FanDuel, Genius Sports, Swish Analytics, MLB, Dream Sports) were not re-collected this run (no new employer-ranking search was run) and are carried over unchanged from the prior snapshot. No KPI figures or salary ranges required changes this run — only the source list and snapshot date were refreshed.
+Salary figures in the snapshot sections are aggregator ranges spanning junior→senior levels, not single-source exact figures — treat as directional, not precise. This run reconfirmed the market-size trajectory ($5.68B→$23.15B, 18.5% CAGR, ~$7.0B in 2026) and the employment-growth outlook (~28% through 2032) as still current, and refined the entry-level pay KPI using clearer by-experience-level breakdowns found this run (entry $50k–$65k, mid-career $80k–$110k, senior $130k+) rather than the previous blended entry/overall-average figure. By-role salary ranges for football, NBA, F1 and cycling matched prior figures closely (e.g. F1 Data Science $98k–$196k typical up to $358k senior, Cycling Data Analyst $62k–$185k) and were left unchanged. The UK football pay-tier chart and top-hiring-employers chart were not re-collected this run (no UK-specific salary or employer-ranking search performed) and are carried over unchanged from the prior snapshot.
 
 ## Publishing / project structure
 
