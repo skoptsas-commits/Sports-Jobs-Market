@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-09-21T15:43:25.260056+00:00",
+  "generated_at": "2026-09-28T17:26:14.323531+00:00",
   "source": "The Adzuna API",
   "attribution_url": "http://www.adzuna.co.uk/",
   "queries": [
     {
       "keyword": "sports data scientist",
       "country": "us",
-      "count": 1600355,
+      "count": 1554505,
       "match_type": "broad (any word)",
       "sample_size": 20,
-      "avg_salary_min": 72573.0,
-      "avg_salary_max": 72573.0
+      "avg_salary_min": 58760.0,
+      "avg_salary_max": 58760.0
     },
     {
       "keyword": "sports scientist football",
@@ -18,53 +18,53 @@
       "count": 2,
       "match_type": "precise (all words)",
       "sample_size": 2,
-      "avg_salary_min": 45076.0,
-      "avg_salary_max": 45076.0
+      "avg_salary_min": 77220.0,
+      "avg_salary_max": 77220.0
     },
     {
       "keyword": "sports analyst",
       "country": "gb",
-      "count": 20,
+      "count": 18,
       "match_type": "precise (all words)",
-      "sample_size": 20,
-      "avg_salary_min": 51480.0,
-      "avg_salary_max": 54630.0
+      "sample_size": 18,
+      "avg_salary_min": 53062.0,
+      "avg_salary_max": 56117.0
     },
     {
       "keyword": "performance analyst",
       "country": "gb",
-      "count": 412,
+      "count": 384,
       "match_type": "precise (all words)",
       "sample_size": 20,
-      "avg_salary_min": 41416.0,
-      "avg_salary_max": 40968.0
+      "avg_salary_min": 44375.0,
+      "avg_salary_max": 46567.0
     },
     {
       "keyword": "motorsport engineer",
       "country": "gb",
-      "count": 208,
+      "count": 221,
       "match_type": "precise (all words)",
       "sample_size": 20,
-      "avg_salary_min": 48595.0,
-      "avg_salary_max": 52109.0
+      "avg_salary_min": 49303.0,
+      "avg_salary_max": 52753.0
     },
     {
       "keyword": "cycling analyst",
       "country": "gb",
-      "count": 18,
+      "count": 20,
       "match_type": "precise (all words)",
-      "sample_size": 18,
-      "avg_salary_min": 51532.0,
-      "avg_salary_max": 53032.0
+      "sample_size": 20,
+      "avg_salary_min": 46685.0,
+      "avg_salary_max": 47945.0
     },
     {
       "keyword": "basketball analyst",
       "country": "us",
-      "count": 2,
+      "count": 1,
       "match_type": "precise (all words)",
-      "sample_size": 2,
-      "avg_salary_min": 143166.0,
-      "avg_salary_max": 163166.0
+      "sample_size": 1,
+      "avg_salary_min": 230000.0,
+      "avg_salary_max": 270000.0
     }
   ]
 }
