@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-05T18:03:33.377335+00:00",
+  "generated_at": "2026-10-12T18:42:18.909631+00:00",
   "source": "The Adzuna API",
   "attribution_url": "http://www.adzuna.co.uk/",
   "queries": [
     {
       "keyword": "sports data scientist",
       "country": "us",
-      "count": 2,
+      "count": 5,
       "match_type": "precise (all words)",
-      "sample_size": 2,
-      "avg_salary_min": 223192.0,
-      "avg_salary_max": 223192.0
+      "sample_size": 5,
+      "avg_salary_min": 194818.0,
+      "avg_salary_max": 194818.0
     },
     {
       "keyword": "sports scientist football",
@@ -24,38 +24,38 @@
     {
       "keyword": "sports analyst",
       "country": "gb",
-      "count": 18,
+      "count": 12,
       "match_type": "precise (all words)",
-      "sample_size": 18,
-      "avg_salary_min": 51871.0,
-      "avg_salary_max": 54371.0
+      "sample_size": 12,
+      "avg_salary_min": 54003.0,
+      "avg_salary_max": 54170.0
     },
     {
       "keyword": "performance analyst",
       "country": "gb",
-      "count": 373,
+      "count": 384,
       "match_type": "precise (all words)",
       "sample_size": 20,
-      "avg_salary_min": 58642.0,
-      "avg_salary_max": 61530.0
+      "avg_salary_min": 60550.0,
+      "avg_salary_max": 63627.0
     },
     {
       "keyword": "motorsport engineer",
       "country": "gb",
-      "count": 246,
+      "count": 240,
       "match_type": "precise (all words)",
       "sample_size": 20,
-      "avg_salary_min": 59716.0,
-      "avg_salary_max": 62916.0
+      "avg_salary_min": 60838.0,
+      "avg_salary_max": 65338.0
     },
     {
       "keyword": "cycling analyst",
       "country": "gb",
-      "count": 15,
+      "count": 16,
       "match_type": "precise (all words)",
-      "sample_size": 15,
-      "avg_salary_min": 47829.0,
-      "avg_salary_max": 48149.0
+      "sample_size": 16,
+      "avg_salary_min": 46044.0,
+      "avg_salary_max": 46344.0
     },
     {
       "keyword": "basketball analyst",
